@@ -5,28 +5,72 @@ local insightsByGroup = {}
 local emptyList = {}
 setmetatable(emptyList, {['__type']='slice'})
 
--- local healthStatus = {
---   id = "healthStatus",
---   name = "Generate Health Status",
---   description = "Generate health status from input of temperature data",
---   constants = {
---     {
---       name = "threshold",
---       type = "number"
---     }
---   },
---   inlets = {
---     {
---       data_type = "NUMERIC",
---       description = "Input Signal"
---     }
---   },
---   outlets = {
---     {
---       data_type = "NUMERIC"
---     }
---   }
--- }
+local healthSwitch = {
+  id = "healthSwitch",
+  name = "Health Switch",
+  description = "Switch a flag based on health comparison",
+  constants = {
+    {
+      name = "threshold",
+      type = "number"
+    },
+    {
+      name = "data_out_ids",
+      type = "string"
+    }
+  },
+  inlets = {
+    {
+      primitive_type = "NUMERIC",
+      description = "Input Signal 1"
+    }
+  },
+  outlets = {
+    primitive_type = "NUMERIC"
+  }
+}
+
+local healthReset = {
+  id = "healthReset",
+  name = "Reset Health",
+  description = "Send command to reset health status",
+  constants = {
+    {
+      name = "data_out_ids",
+      type = "string"
+    }
+  },
+  inlets = {
+    {
+      primitive_type = "NUMERIC",
+      description = "Input Signal 1"
+    }
+  },
+  outlets = {
+    primitive_type = "NUMERIC"
+  }
+}
+
+local healthCommand = {
+  id = "healthCommand",
+  name = "Command Device",
+  description = "Send command to notify of health change",
+  constants = {
+    {
+      name = "data_out_ids",
+      type = "string"
+    }
+  },
+  inlets = {
+    {
+      primitive_type = "NUMERIC",
+      description = "Input Signal 1"
+    }
+  },
+  outlets = {
+    primitive_type = "NUMERIC"
+  }
+}
 
 local healthStatus = {
   id = "healthStatus",
@@ -82,7 +126,7 @@ local healthAction = {
   }
 }
 
-functions = {healthStatus, healthScore, healthAction}
+functions = {healthSwitch, healthReset, healthCommand, healthStatus, healthScore, healthAction}
 
 local count = table.getn(functions)
 local total = table.getn(functions)

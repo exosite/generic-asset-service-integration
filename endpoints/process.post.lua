@@ -3,6 +3,8 @@
 
 local args = request.body.args
 local functionId = args.function_id
+local groupId = args.group_id
+local constants = args.contstants
 
 local dataOUT = insightModule[functionId](request.body)
 
